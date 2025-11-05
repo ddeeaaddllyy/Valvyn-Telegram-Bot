@@ -1,4 +1,3 @@
-import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.meta.TelegramBotsApi
@@ -8,13 +7,14 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession
 
 @Component
-open class Bot(
-    private val token: String,
-    private val botName: String
-): TelegramLongPollingBot() {
+private final class Bot: TelegramLongPollingBot() {
+    companion object {
+        const val TOKEN: String = "8488953991:AAHhZ9WW6x7kwm8Ylh-Pd-XCPA9V9q8akvg"
+        const val BOT_NAME: String = "Valvyn(VN)"
+    }
 
-    override fun getBotToken() = token
-    override fun getBotUsername() = botName
+    override fun getBotToken() = TOKEN
+    override fun getBotUsername() = BOT_NAME
 
     override fun onUpdateReceived(update: Update) {
         if (update.hasMessage() and update.message.hasText()) {
@@ -30,7 +30,7 @@ open class Bot(
         }
     }
 
-    private fun sendMessage(chatId: String, text: String) {
+    private final fun sendMessage(chatId: String, text: String) {
         val message = SendMessage()
         message.chatId = chatId
         message.text = text
@@ -43,7 +43,7 @@ open class Bot(
 }
 
 fun main() {
-    val bot = Bot(token = "8488953991:AAHhZ9WW6x7kwm8Ylh-Pd-XCPA9V9q8akvg", botName = "Valvyn(VN)")
+    val bot = Bot()
     try {
         val botsApi = TelegramBotsApi(DefaultBotSession::class.java)
         botsApi.registerBot(bot)

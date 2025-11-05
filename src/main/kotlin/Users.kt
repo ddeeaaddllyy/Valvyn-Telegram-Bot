@@ -44,6 +44,7 @@ fun printUserName(repository: IUserRepository){
     val users = repository.getUsers()
     println("list of users")
     users.forEach { users ->
-        println("ID: ${users.id}\nName: ${users.name}")
+        println("ID: ${users.id}\n" +
+                "Name: ${users.name}")
     }
 }
