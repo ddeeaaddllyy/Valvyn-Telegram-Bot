@@ -1,11 +1,9 @@
 plugins {
-    id("nu.studer.jooq") version("6.0.1")
-    id("org.flywaydb.flyway") version("7.7.0")
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "2.2.20"
-    kotlin("plugin.spring") version "1.5.31"
+    kotlin("plugin.spring") version "2.2.20"
 }
 
+val room_version = "2.8.3"
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
@@ -15,11 +13,11 @@ repositories {
 }
 
 dependencies {
+    // Room
+    implementation("androidx.room:room-runtime:${room_version}")
 
+    // telegram
     implementation("org.telegram:telegrambots-spring-boot-starter:6.9.7.1")
-    implementation("org.telegram:telegrambotsextensions:6.9.7.1")
-
-    testImplementation(kotlin("test"))
 }
 
 tasks.test {
